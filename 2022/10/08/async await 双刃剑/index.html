@@ -1,0 +1,317 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>async await 是把双刃剑 | 小虎のBlog</title><meta name="keywords" content="Js Es6"><meta name="author" content="Xiaohu"><meta name="copyright" content="Xiaohu"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="本周精读内容是 《async&#x2F;await 是把双刃剑》。 1 引言终于，async&#x2F;await 也被吐槽了。Aditya Agarwal 认为 async&#x2F;await 语法让我们陷入了新的麻烦之中。 其实，笔者也早就觉得哪儿不对劲了，终于有个人把实话说了出来，async&#x2F;await 可能会带来麻烦。 2 概述下面是随处可见的现代化前端代码： (async (">
+<meta property="og:type" content="article">
+<meta property="og:title" content="async await 是把双刃剑">
+<meta property="og:url" content="https://xiaohuooo.github.io/2022/10/08/async%20await%20%E5%8F%8C%E5%88%83%E5%89%91/index.html">
+<meta property="og:site_name" content="小虎のBlog">
+<meta property="og:description" content="本周精读内容是 《async&#x2F;await 是把双刃剑》。 1 引言终于，async&#x2F;await 也被吐槽了。Aditya Agarwal 认为 async&#x2F;await 语法让我们陷入了新的麻烦之中。 其实，笔者也早就觉得哪儿不对劲了，终于有个人把实话说了出来，async&#x2F;await 可能会带来麻烦。 2 概述下面是随处可见的现代化前端代码： (async (">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://th.bing.com/th/id/OIP.0PP979cRedaM7oLdZ_Qh9gHaDH?w=297&h=146&c=7&r=0&o=5&dpr=1.1&pid=1.7">
+<meta property="article:published_time" content="2022-10-08T12:08:58.000Z">
+<meta property="article:modified_time" content="2022-10-08T12:11:28.105Z">
+<meta property="article:author" content="Xiaohu">
+<meta property="article:tag" content="Js Es6">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://th.bing.com/th/id/OIP.0PP979cRedaM7oLdZ_Qh9gHaDH?w=297&h=146&c=7&r=0&o=5&dpr=1.1&pid=1.7"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://xiaohuooo.github.io/2022/10/08/async%20await%20%E5%8F%8C%E5%88%83%E5%89%91/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: undefined,
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'async await 是把双刃剑',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-10-08 20:11:28'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/background.css"><meta name="generator" content="Hexo 6.2.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://img-blog.csdnimg.cn/20200718094906390.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">5</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">5</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://th.bing.com/th/id/OIP.0PP979cRedaM7oLdZ_Qh9gHaDH?w=297&amp;h=146&amp;c=7&amp;r=0&amp;o=5&amp;dpr=1.1&amp;pid=1.7')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">小虎のBlog</a><div id="he-plugin-simple"></div></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">async await 是把双刃剑</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-10-08T12:08:58.000Z" title="发表于 2022-10-08 20:08:58">2022-10-08</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-10-08T12:11:28.105Z" title="更新于 2022-10-08 20:11:28">2022-10-08</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Js/">Js</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.7k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>5分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="async await 是把双刃剑"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>本周精读内容是 <a target="_blank" rel="noopener" href="https://medium.freecodecamp.org/avoiding-the-async-await-hell-c77a0fb71c4c">《async&#x2F;await 是把双刃剑》</a>。</p>
+<h2 id="1-引言"><a href="#1-引言" class="headerlink" title="1 引言"></a>1 引言</h2><p>终于，async&#x2F;await 也被吐槽了。Aditya Agarwal 认为 async&#x2F;await 语法让我们陷入了新的麻烦之中。</p>
+<p>其实，笔者也早就觉得哪儿不对劲了，终于有个人把实话说了出来，async&#x2F;await 可能会带来麻烦。</p>
+<h2 id="2-概述"><a href="#2-概述" class="headerlink" title="2 概述"></a>2 概述</h2><p>下面是随处可见的现代化前端代码：</p>
+<pre><code class="typescript">(async () =&gt; &#123;
+  const pizzaData = await getPizzaData(); // async call
+  const drinkData = await getDrinkData(); // async call
+  const chosenPizza = choosePizza(); // sync call
+  const chosenDrink = chooseDrink(); // sync call
+  await addPizzaToCart(chosenPizza); // async call
+  await addDrinkToCart(chosenDrink); // async call
+  orderItems(); // async call
+&#125;)();
+</code></pre>
+<p>await 语法本身没有问题，有时候可能是使用者用错了。当 <code>pizzaData</code> 与 <code>drinkData</code> 之间没有依赖时，顺序的 await 会最多让执行时间增加一倍的 <code>getPizzaData</code> 函数时间，因为 <code>getPizzaData</code> 与 <code>getDrinkData</code> 应该并行执行。</p>
+<p>回到我们吐槽的回调地狱，虽然代码比较丑，带起码两行回调代码并不会带来阻塞。</p>
+<p>看来语法的简化，带来了性能问题，而且直接影响到用户体验，是不是值得我们反思一下？</p>
+<p>正确的做法应该是先同时执行函数，再 await 返回值，这样可以并行执行异步函数：</p>
+<pre><code class="typescript">(async () =&gt; &#123;
+  const pizzaPromise = selectPizza();
+  const drinkPromise = selectDrink();
+  await pizzaPromise;
+  await drinkPromise;
+  orderItems(); // async call
+&#125;)();
+</code></pre>
+<p>或者使用 <code>Promise.all</code> 可以让代码更可读：</p>
+<pre><code class="typescript">(async () =&gt; &#123;
+  Promise.all([selectPizza(), selectDrink()]).then(orderItems); // async call
+&#125;)();
+</code></pre>
+<p>看来不要随意的 await，它很可能让你代码性能降低。</p>
+<h2 id="3-精读"><a href="#3-精读" class="headerlink" title="3 精读"></a>3 精读</h2><p>仔细思考为什么 async&#x2F;await 会被滥用，笔者认为是它的功能比较反直觉导致的。</p>
+<p>首先 async&#x2F;await 真的是语法糖，功能也仅是让代码写的舒服一些。先不看它的语法或者特性，仅从语法糖三个字，就能看出它一定是局限了某些能力。</p>
+<p>举个例子，我们利用 html 标签封装了一个组件，带来了便利性的同时，其功能一定是 html 的子集。又比如，某个轮子哥觉得某个组件 api 太复杂，于是基于它封装了一个语法糖，我们多半可以认为这个便捷性是牺牲了部分功能换来的。</p>
+<p>功能完整度与使用便利度一直是相互博弈的，很多框架思想的不同开源版本，几乎都是把功能完整度与便利度按照不同比例混合的结果。</p>
+<p>那么回到 async&#x2F;await 它的解决的问题是回调地狱带来的灾难：</p>
+<pre><code class="typescript">a(() =&gt; &#123;
+  b(() =&gt; &#123;
+    c();
+  &#125;);
+&#125;);
+</code></pre>
+<p>为了减少嵌套结构太多对大脑造成的冲击，async&#x2F;await 决定这么写：</p>
+<pre><code class="typescript">await a();
+await b();
+await c();
+</code></pre>
+<p>虽然层级上一致了，但逻辑上还是嵌套关系，这不是另一个程度上增加了大脑负担吗？而且这个转换还是隐形的，所以许多时候，我们倾向于忽略它，所以造成了语法糖的滥用。</p>
+<h3 id="理解语法糖"><a href="#理解语法糖" class="headerlink" title="理解语法糖"></a>理解语法糖</h3><p>虽然要正确理解 async&#x2F;await 的真实效果比较反人类，但为了清爽的代码结构，以及防止写出低性能的代码，还是挺有必要认真理解 async&#x2F;await 带来的改变。</p>
+<p>首先 async&#x2F;await 只能实现一部分回调支持的功能，也就是仅能方便应对层层嵌套的场景。其他场景，就要动一些脑子了。</p>
+<p>比如两对回调：</p>
+<pre><code class="typescript">a(() =&gt; &#123;
+  b();
+&#125;);
+
+c(() =&gt; &#123;
+  d();
+&#125;);
+</code></pre>
+<p>如果写成下面的方式，虽然一定能保证功能一致，但变成了最低效的执行方式：</p>
+<pre><code class="typescript">await a();
+await b();
+await c();
+await d();
+</code></pre>
+<p>因为翻译成回调，就变成了：</p>
+<pre><code class="typescript">a(() =&gt; &#123;
+  b(() =&gt; &#123;
+    c(() =&gt; &#123;
+      d();
+    &#125;);
+  &#125;);
+&#125;);
+</code></pre>
+<p>然而我们发现，原始代码中，函数 <code>c</code> 可以与 <code>a</code> 同时执行，但 async&#x2F;await 语法会让我们倾向于在 <code>b</code> 执行完后，再执行 <code>c</code>。</p>
+<p>所以当我们意识到这一点，可以优化一下性能：</p>
+<pre><code class="typescript">const resA = a();
+const resC = c();
+
+await resA;
+b();
+await resC;
+d();
+</code></pre>
+<p>但其实这个逻辑也无法达到回调的效果，虽然 <code>a</code> 与 <code>c</code> 同时执行了，但 <code>d</code> 原本只要等待 <code>c</code> 执行完，现在如果 <code>a</code> 执行时间比 <code>c</code> 长，就变成了:</p>
+<pre><code class="typescript">a(() =&gt; &#123;
+  d();
+&#125;);
+</code></pre>
+<p>看来只有完全隔离成两个函数：</p>
+<pre><code class="typescript">(async () =&gt; &#123;
+  await a();
+  b();
+&#125;)();
+
+(async () =&gt; &#123;
+  await c();
+  d();
+&#125;)();
+</code></pre>
+<p>或者利用 <code>Promise.all</code>:</p>
+<pre><code class="typescript">async function ab() &#123;
+  await a();
+  b();
+&#125;
+
+async function cd() &#123;
+  await c();
+  d();
+&#125;
+
+Promise.all([ab(), cd()]);
+</code></pre>
+<p>这就是我想表达的可怕之处。回调方式这么简单的过程式代码，换成 async&#x2F;await 居然写完还要反思一下，再反推着去优化性能，这简直比回调地狱还要可怕。</p>
+<p>而且大部分场景代码是非常复杂的，同步与 await 混杂在一起，想捋清楚其中的脉络，并正确优化性能往往是很困难的。但是我们为什么要自己挖坑再填坑呢？很多时候还会导致忘了填。</p>
+<p>原文作者给出了 <code>Promise.all</code> 的方式简化逻辑，但笔者认为，不要一昧追求 async&#x2F;await 语法，在必要情况下适当使用回调，是可以增加代码可读性的。</p>
+<h2 id="4-总结"><a href="#4-总结" class="headerlink" title="4 总结"></a>4 总结</h2><p>async&#x2F;await 回调地狱提醒着我们，不要过度依赖新特性，否则可能带来的代码执行效率的下降，进而影响到用户体验。同时，笔者认为，也不要过度利用新特性修复新特性带来的问题，这样反而导致代码可读性下降。</p>
+<p>当我翻开 redux 刚火起来那段时期的老代码，看到了许多过度抽象、为了用而用的代码，硬是把两行代码能写完的逻辑，拆到了 3 个文件，分散在 6 行不同位置，我只好用字符串搜索的方式查找线索，最后发现这个抽象代码整个项目仅用了一次。</p>
+<p>写出这种代码的可能性只有一个，就是在精神麻木的情况下，一口气喝完了 redux 提供的全部鸡汤。</p>
+<p>就像 async&#x2F;await 地狱一样，看到这种 redux 代码，我觉得远不如所谓没跟上时代的老前端写出的 jquery 代码。</p>
+<p>决定代码质量的是思维，而非框架或语法，async&#x2F;await 虽好，但也要适度哦。</p>
+<blockquote>
+<p>PS: 经过讨论，笔者把原文 async&#x2F;await 地狱标题改成了 async&#x2F;await 是把双刃剑。因为 async&#x2F;await 并没有回调地狱那么可怕，称它为地狱有误导的可能性。</p>
+</blockquote>
+<h2 id="5-更多讨论"><a href="#5-更多讨论" class="headerlink" title="5 更多讨论"></a>5 更多讨论</h2><blockquote>
+<p>讨论地址是：<a target="_blank" rel="noopener" href="https://github.com/dt-fe/weekly/issues/82">精读《async&#x2F;await 是把双刃剑》 · Issue #82 · dt-fe&#x2F;weekly</a></p>
+</blockquote>
+<p><strong>如果你想参与讨论，请<a target="_blank" rel="noopener" href="https://github.com/dt-fe/weekly">点击这里</a>，每周都有新的主题，周末或周一发布。</strong></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://xiaohuooo.github.io">Xiaohu</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://xiaohuooo.github.io/2022/10/08/async%20await%20%E5%8F%8C%E5%88%83%E5%89%91/">https://xiaohuooo.github.io/2022/10/08/async%20await%20%E5%8F%8C%E5%88%83%E5%89%91/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://xiaohuooo.github.io" target="_blank">小虎のBlog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Js-Es6/">Js Es6</a></div><div class="post_share"><div class="social-share" data-image="https://th.bing.com/th/id/OIP.0PP979cRedaM7oLdZ_Qh9gHaDH?w=297&amp;h=146&amp;c=7&amp;r=0&amp;o=5&amp;dpr=1.1&amp;pid=1.7" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2022/10/06/%E6%95%B0%E6%8D%AE%E5%BA%93(mysql_mongo)/"><img class="next-cover" src="https://pic4.zhimg.com/v2-1aa6388e4d4a03f71758144836ee0111_b.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">mysql知识点</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://img-blog.csdnimg.cn/20200718094906390.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Xiaohu</div><div class="author-info__description">好好学习，天天向上</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">5</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">5</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%BC%95%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">1 引言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E6%A6%82%E8%BF%B0"><span class="toc-number">2.</span> <span class="toc-text">2 概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E7%B2%BE%E8%AF%BB"><span class="toc-number">3.</span> <span class="toc-text">3 精读</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%90%86%E8%A7%A3%E8%AF%AD%E6%B3%95%E7%B3%96"><span class="toc-number">3.1.</span> <span class="toc-text">理解语法糖</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E6%80%BB%E7%BB%93"><span class="toc-number">4.</span> <span class="toc-text">4 总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E6%9B%B4%E5%A4%9A%E8%AE%A8%E8%AE%BA"><span class="toc-number">5.</span> <span class="toc-text">5 更多讨论</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/10/08/async%20await%20%E5%8F%8C%E5%88%83%E5%89%91/" title="async await 是把双刃剑"><img src="https://th.bing.com/th/id/OIP.0PP979cRedaM7oLdZ_Qh9gHaDH?w=297&amp;h=146&amp;c=7&amp;r=0&amp;o=5&amp;dpr=1.1&amp;pid=1.7" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="async await 是把双刃剑"/></a><div class="content"><a class="title" href="/2022/10/08/async%20await%20%E5%8F%8C%E5%88%83%E5%89%91/" title="async await 是把双刃剑">async await 是把双刃剑</a><time datetime="2022-10-08T12:08:58.000Z" title="发表于 2022-10-08 20:08:58">2022-10-08</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/10/06/%E6%95%B0%E6%8D%AE%E5%BA%93(mysql_mongo)/" title="mysql知识点"><img src="https://pic4.zhimg.com/v2-1aa6388e4d4a03f71758144836ee0111_b.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="mysql知识点"/></a><div class="content"><a class="title" href="/2022/10/06/%E6%95%B0%E6%8D%AE%E5%BA%93(mysql_mongo)/" title="mysql知识点">mysql知识点</a><time datetime="2022-10-06T04:52:18.000Z" title="发表于 2022-10-06 12:52:18">2022-10-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/09/07/Git/" title="常用 Git 命令总结"><img src="https://umaar.github.io/experiments/github-3d-logo/render-2.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="常用 Git 命令总结"/></a><div class="content"><a class="title" href="/2022/09/07/Git/" title="常用 Git 命令总结">常用 Git 命令总结</a><time datetime="2022-09-07T09:03:49.000Z" title="发表于 2022-09-07 17:03:49">2022-09-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/08/19/blog/" title="blog"><img src="http://up.36992.com/pic/e6/c5/51/e6c551e768092c8655292d89a4034a74.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="blog"/></a><div class="content"><a class="title" href="/2022/08/19/blog/" title="blog">blog</a><time datetime="2022-08-19T13:35:34.000Z" title="发表于 2022-08-19 21:35:34">2022-08-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/08/18/hello-world/" title="Hello World"><img src="https://img-blog.csdnimg.cn/20200718094916304.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hello World"/></a><div class="content"><a class="title" href="/2022/08/18/hello-world/" title="Hello World">Hello World</a><time datetime="2022-08-18T05:30:40.912Z" title="发表于 2022-08-18 13:30:40">2022-08-18</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By Xiaohu</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>function addGitalkSource () {
+  const ele = document.createElement('link')
+  ele.rel = 'stylesheet'
+  ele.href= 'https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css'
+  document.getElementsByTagName('head')[0].appendChild(ele)
+}
+
+function loadGitalk () {
+  function initGitalk () {
+    var gitalk = new Gitalk(Object.assign({
+      clientID: 'baab48a983ec14e4cdde',
+      clientSecret: 'c836d8a676b177f265ee694beb1b70f311588090',
+      repo: 'blogcomments',
+      owner: 'Mis-xiaohu',
+      admin: ['Mis-xiaohu'],
+      id: '048f5ea32db6d829f78e2025722d33df',
+      updateCountCallback: commentCount
+    },null))
+
+    gitalk.render('gitalk-container')
+  }
+
+  if (typeof Gitalk === 'function') initGitalk()
+  else {
+    addGitalkSource()
+    getScript('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js').then(initGitalk)
+  }
+}
+
+function commentCount(n){
+  let isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+  if (isCommentCount) {
+    isCommentCount.innerHTML= n
+  }
+}
+
+if ('Gitalk' === 'Gitalk' || !true) {
+  if (true) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+  else loadGitalk()
+} else {
+  function loadOtherComment () {
+    loadGitalk()
+  }
+}</script></div><script src="https://widget.qweather.net/simple/static/js/he-simple-common.js?v=2.0"></script><script async src="/js/weather.js"></script><script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="150" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-nest.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/activate-power-mode.min.js"></script><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="true"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

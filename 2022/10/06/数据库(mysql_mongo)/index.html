@@ -1,0 +1,506 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>mysql知识点 | 小虎のBlog</title><meta name="keywords" content="mysql"><meta name="author" content="Xiaohu"><meta name="copyright" content="Xiaohu"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="mysql数据库创建表- 数据类型     + 整数类型 int     + 浮点类型 double     + 日期类型 date&#x2F;timestamp      + 字符串类型 char varchar         * 可变varchar(n)  必须要给字符最大长度n 使用：用户名，密码，身份证号码。 n&#x3D; 40 40 个字节，20个字符          * 不可变是char 不需要给字">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mysql知识点">
+<meta property="og:url" content="https://xiaohuooo.github.io/2022/10/06/%E6%95%B0%E6%8D%AE%E5%BA%93(mysql_mongo)/index.html">
+<meta property="og:site_name" content="小虎のBlog">
+<meta property="og:description" content="mysql数据库创建表- 数据类型     + 整数类型 int     + 浮点类型 double     + 日期类型 date&#x2F;timestamp      + 字符串类型 char varchar         * 可变varchar(n)  必须要给字符最大长度n 使用：用户名，密码，身份证号码。 n&#x3D; 40 40 个字节，20个字符          * 不可变是char 不需要给字">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pic4.zhimg.com/v2-1aa6388e4d4a03f71758144836ee0111_b.jpg">
+<meta property="article:published_time" content="2022-10-06T04:52:18.000Z">
+<meta property="article:modified_time" content="2022-10-06T04:56:04.297Z">
+<meta property="article:author" content="Xiaohu">
+<meta property="article:tag" content="mysql">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pic4.zhimg.com/v2-1aa6388e4d4a03f71758144836ee0111_b.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://xiaohuooo.github.io/2022/10/06/%E6%95%B0%E6%8D%AE%E5%BA%93(mysql_mongo)/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: undefined,
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'mysql知识点',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-10-06 12:56:04'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/background.css"><meta name="generator" content="Hexo 6.2.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://img-blog.csdnimg.cn/20200718094906390.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">5</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">5</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://www.sxkawzp.cn/upload/2020/2/mysql1-12a849f2afe54669a6cc3259e9d380ac.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">小虎のBlog</a><div id="he-plugin-simple"></div></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">mysql知识点</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-10-06T04:52:18.000Z" title="发表于 2022-10-06 12:52:18">2022-10-06</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-10-06T04:56:04.297Z" title="更新于 2022-10-06 12:56:04">2022-10-06</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Mysql/">Mysql</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>9分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="mysql知识点"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h3 id="mysql数据库"><a href="#mysql数据库" class="headerlink" title="mysql数据库"></a>mysql数据库</h3><h4 id="创建表"><a href="#创建表" class="headerlink" title="创建表"></a>创建表</h4><pre><code>- 数据类型
+    + 整数类型 int
+    + 浮点类型 double
+    + 日期类型 date/timestamp 
+    + 字符串类型 char varchar
+        * 可变varchar(n)  必须要给字符最大长度n 使用：用户名，密码，身份证号码。 n= 40 40 个字节，20个字符 
+        * 不可变是char 不需要给字符长度,使用；商品描述、歌词...
+        * 空间换时间 
+        * text 长度不限 
+- 首先足够用，其次尽量小
+</code></pre>
+<pre><code>    create table 表名(
+        id int,
+        name varchar(20)
+    );
+</code></pre>
+<pre><code>- 查看创建表的语句
+    + show create table 表名
+- 查看表的明细
+    + desc 表名
+</code></pre>
+<h4 id="删除表"><a href="#删除表" class="headerlink" title="删除表"></a>删除表</h4><pre><code>- drop table 表名
+</code></pre>
+<h4 id="插入数据"><a href="#插入数据" class="headerlink" title="插入数据"></a>插入数据</h4><pre><code>- 第一种：全表字段插入
+    + `insert into 表名 values (val1,val2...)`
+    + 插入的字段类型和*顺序必须*与表的字段*类型*与顺序保持一致,个数是针对全表字段的插入
+- 指定表字段的插入
+    + `insert into 表名 (字段1,字段2...) values (val1,val2...)`
+    + 插入的数据的顺序要与声明的字段名的顺序一致
+    + 类型也要一致，个数也要一致
+</code></pre>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>sql 语句 结尾必须要有  分号</p>
+<ul>
+<li>启动：到安装的bin文件下 或者用可视化工具</li>
+</ul>
+<ul>
+<li>1: 登录：<ul>
+<li>mysql   -u root -p</li>
+<li>密码</li>
+<li><code>mysql 连接 -u用户名root -p</code></li>
+<li>mysql  -hlocalhost -uroot -p</li>
+<li><code>mysql yanqi -uroot -p</code></li>
+</ul>
+</li>
+<li>2: 查看有哪些数据库<ul>
+<li>show databases;</li>
+</ul>
+</li>
+<li>3: 切换数据库<ul>
+<li>use 数据库名;</li>
+</ul>
+</li>
+<li>4: show tables;  <ul>
+<li>没有表： 必须创建表 create table ceshi(id int,name varchar(20));</li>
+</ul>
+</li>
+<li>5: 查看表字段明细<ul>
+<li>desc 表名;</li>
+</ul>
+</li>
+<li>6: 插入数据<ul>
+<li><code>insert into 表名 (字段1,..) values (值1...)</code></li>
+<li>插入的是数据，表中字段；以及字段的类型；是在创建表示决定的</li>
+</ul>
+</li>
+<li>更新操作<ul>
+<li><code>UPDATE 表名 SET 字段1 = 表达式,[,字段2 = 表达式] [WHERE express布尔值]</code></li>
+<li><code> update student set tmp = 20+1,sex = sex where 1=1;</code></li>
+</ul>
+</li>
+<li>删除操作<ul>
+<li><code>DELETE FROM 表名 [,WHERE exr布尔值]</code></li>
+<li><code>delete from student where name = &#39;马蓉&#39;;</code></li>
+</ul>
+</li>
+<li>truncate和delete的区别<ul>
+<li><code>truncate table 表名</code><br>  delete会一条一条的删 自增id保留<br>  truncate先摧毁整张表，再创建一张和原来的表结构一模一样的表<br>  truncate在效率上比delete高<br>  truncate只能删除整表的数据，也就是格式化。<br>  truncate会把自增id截断恢复为1</li>
+</ul>
+</li>
+</ul>
+<h3 id="查询语句"><a href="#查询语句" class="headerlink" title="查询语句"></a>查询语句</h3><ul>
+<li>DISTINCT 去重，尽量不要根据* 来去重<ul>
+<li><code>select distinct name,age from student;</code></li>
+</ul>
+</li>
+<li>查询语句可以指定多个字段查询，也可以使用* 查询<ul>
+<li>在企业中，使用SQL查询* 是会拉低查询效率的 ，建议少用* 查询</li>
+</ul>
+</li>
+</ul>
+<h4 id="条件查询"><a href="#条件查询" class="headerlink" title="条件查询"></a>条件查询</h4><ul>
+<li><code>select * from student where math &gt; 66.6 or math &lt; 66.6;</code></li>
+<li>语法：select * from 表 查询条件</li>
+</ul>
+<pre><code>&gt; &lt; &lt;= &gt;= = &lt;&gt;    大于、小于、大于(小于等于)、不等于
+between...and 显示在某一区间的值
+in(set) 显示在in列表中的值，例：in(100,200)
+like ‘张pattern’ 模糊查询%
+is null 判断是否为空
+and 多个条件同时成立
+or  多个条件任一成立
+not 不成立，例：where not(salary&gt;100)
+</code></pre>
+<h4 id="模糊查询"><a href="#模糊查询" class="headerlink" title="模糊查询"></a>模糊查询</h4><pre><code>- 包含关`select * from student where name like &#39;%关%&#39;;` 
+- 以关开头`select * from student where name like &#39;关%&#39;;` 
+- 以关结尾`select * from student where name like &#39;%关&#39;;` 
+</code></pre>
+<ul>
+<li>判断为空<ul>
+<li><code>select * from student where sex is not null;</code></li>
+</ul>
+</li>
+</ul>
+<h4 id="聚合函数"><a href="#聚合函数" class="headerlink" title="聚合函数"></a>聚合函数</h4><ul>
+<li>统计数量 <ul>
+<li>count(星号)</li>
+</ul>
+</li>
+<li>求和<ul>
+<li>sum(math+english+chinese)</li>
+</ul>
+</li>
+<li>平均值<ul>
+<li>avg(math+english+chinese)</li>
+</ul>
+</li>
+<li>找最值<ul>
+<li>max(列)&#x2F;min(列)&#x2F;max(math+english+chinese)</li>
+</ul>
+</li>
+</ul>
+<h4 id="排序-order-by"><a href="#排序-order-by" class="headerlink" title="排序(order by)"></a>排序(order by)</h4><ul>
+<li><code>select * from student where 1= 1 order by chinese desc,math desc,english desc;</code></li>
+</ul>
+<h4 id="分组-group-by"><a href="#分组-group-by" class="headerlink" title="分组(group by)"></a>分组(group by)</h4><ul>
+<li>如果聚合函数只有一行，需要对于不同的集合做聚合运算就加上分组<ul>
+<li><code>select zu,count(*) from student group by zu;</code></li>
+</ul>
+</li>
+</ul>
+<h4 id="分页-limit"><a href="#分页-limit" class="headerlink" title="分页(limit)"></a>分页(limit)</h4><pre><code>    - `select * from student limit 10,5;`
+    - limit offset(起始位置) count(显示多少个)
+    - limit 使用的时候，offset从0开始
+    - 豆瓣： offset （当前页-1）* 页显示数
+        + count ： 页显示数
+</code></pre>
+<h4 id="默认端口（数据库汇总）"><a href="#默认端口（数据库汇总）" class="headerlink" title="默认端口（数据库汇总）"></a>默认端口（数据库汇总）</h4><ul>
+<li>oracle：1521</li>
+<li>sqlserver ：1433</li>
+<li>mysql ：3306</li>
+<li>mongodb ：27017</li>
+<li>DB2 ： 50000</li>
+</ul>
+<h3 id="mysql中间使用"><a href="#mysql中间使用" class="headerlink" title="mysql中间使用"></a>mysql中间使用</h3><h4 id="使用步骤"><a href="#使用步骤" class="headerlink" title="使用步骤"></a>使用步骤</h4><ul>
+<li><input disabled="" type="checkbox"> 1：导入mysql 中间件  const mysql &#x3D; require(‘mysql’);</li>
+<li><input disabled="" type="checkbox"> 2: 创建连接池  const pool &#x3D;mysql.createPool()</li>
+<li><input disabled="" type="checkbox"> 3: 取出链接  pool.getConnection()</li>
+<li><input disabled="" type="checkbox"> 4：操作数据 pool.query()</li>
+<li><input disabled="" type="checkbox"> 5：释放链接  release()</li>
+<li><input disabled="" type="checkbox"> 6：操作数据库完毕（err&#x2F;success） 做什么(交给外部处理函数)</li>
+</ul>
+<p>mysql中间件操作mysql 数据库方法封装</p>
+<pre><code class="javascript">
+const pool  = mysql.createPool(&#123;
+  connectionLimit : 10,// 一次性
+  host            : &#39;localhost&#39;,
+  user            : &#39;root&#39;,
+  port            : &#39;3306&#39;,
+  password        : &#39;123456&#39;,
+  database        : &#39;yanqi&#39;
+&#125;);
+ 
+var db = &#123;&#125;;
+
+db.p = function (sql,parm,callback) &#123;
+    // getConnection() 从连接池中获取链接 
+    // 回参一：抛出错误
+    // 回参二：获取到的链接
+    pool.getConnection(function(error,connection)&#123;
+        if(error)&#123;
+            callback(error);// 错误异常处理
+            return // 获取链接池失败 以下不执行了
+        &#125;
+     // query()  往数据库发送请求的
+     // 参一：sql语句
+     // 参二：回调函数：处理数据库的响应
+     // 回参一：抛出错误异常（错误优先原则）
+     // 回参二：数据库响应的正确结果  
+         connection.query(sql,parm,function(error,results)&#123;
+             console.log(`$&#123;sql&#125;===&gt;$&#123;parm&#125;`);
+             //  --&gt; 释放链接
+             connection.release();
+            //  ----&gt; 将操作数据库结果发送给外界让外处理
+             callback(error,results);// callback 是对查询结果的处理
+         &#125;)
+    &#125;)
+&#125;
+</code></pre>
+<h5 id="getConnection"><a href="#getConnection" class="headerlink" title="getConnection()"></a>getConnection()</h5><h5 id="query"><a href="#query" class="headerlink" title="query()"></a>query()</h5><p>作用：通过连接池去操作去操作数据库</p>
+<blockquote>
+<p> 参一： sql 语句   换句话，如果想对数据是增删改查操作，就写对应的sql 语句</p>
+</blockquote>
+<blockquote>
+<p> 参二： 回调函数：sql 语句执行的结果</p>
+<p>——&gt;  回参一： 返回的是错误信息</p>
+<p>——&gt;  回参二：sql 执行成功 输出的结果</p>
+</blockquote>
+<h3 id="mongoDB"><a href="#mongoDB" class="headerlink" title="mongoDB"></a>mongoDB</h3><ul>
+<li>关系是数据库对应多个集合<ul>
+<li>集合对应多个文档对象</li>
+<li>在mongo中不论是db还是集合，你都无需去创建他</li>
+<li>直接就当他已经存在，直接Use来使用<ul>
+<li>use db名称;<ul>
+<li>接着会被切换到该db中</li>
+<li><code>db.要创建的集合名称.save(&#123;&#125;)</code>;这样集合就被创建了</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>1:启动服务器<ul>
+<li><code>mongod --dbpath &quot;D:/mongodb/db&quot;</code> &#x2F;&#x2F; 目录一定要存在自己创建随便名称‘<ul>
+<li>尽量设置在非系统盘 <code>C盘生成目录是需要权限的</code></li>
+</ul>
+</li>
+<li>如果看到<code>waiting for connections on port 27017</code>说明服务已经启动</li>
+</ul>
+</li>
+<li>客户端连接服务器<strong>另开一个命令行</strong><ul>
+<li><code>mongo</code> 默认连接的是test数据库</li>
+</ul>
+</li>
+<li>查询有哪些数据库  <ul>
+<li>查询数据库：<code>show dbs;</code></li>
+<li>切换数据库: <code>use 数据库名;</code></li>
+</ul>
+</li>
+<li>查询当前db下有哪些集合<ul>
+<li><code>show collections;</code></li>
+</ul>
+</li>
+<li>查询数据：<ul>
+<li><code>db.集合名.find();</code>  &#x2F;&#x2F;查询出来的是文档对象 document</li>
+<li><code>db.users.find();</code></li>
+</ul>
+</li>
+<li>添加数据:<ul>
+<li><code>db.集合名.save(对象)</code> &#x2F;&#x2F;mongo默认会给我们加入_id作为该文档对象的唯一标识</li>
+<li><code>db.users.save(&#123;contry:&#39;中国&#39;,name:&#39;小明&#39;,score:77&#125;);</code></li>
+</ul>
+</li>
+<li>删除数据:<ul>
+<li><code>db.集合名.remove(条件对象);</code>&#x2F;&#x2F;条件匹配就会被删除</li>
+<li><code>db.users.remove(&#123;name:&#39;小明&#39;&#125;);</code></li>
+<li>如果给定一个空对像，会匹配全部</li>
+</ul>
+</li>
+<li>更新数据:<ul>
+<li><code>db.集合名.update(&#123;匹配条件对象&#125;,&#123;$set:&#123;修改后的对象&#125;&#125;);</code></li>
+<li><code>db.users.update(&#123;name:&#39;小明&#39;&#125;,&#123;$set:&#123;contry:&#39;印度&#39;&#125;&#125;);;</code></li>
+</ul>
+</li>
+</ul>
+<h4 id="条件查询-1"><a href="#条件查询-1" class="headerlink" title="条件查询"></a>条件查询</h4><pre><code>练习：
+   查询姓名为小明的学生
+        db.users.find(&#123;name:&#39;小明&#39;&#125;);;
+   查询英语成绩大于90分的同学
+        db.users.find(&#123;score:&#123;$gt:90&#125;&#125;); //查找成绩大于90分$gt
+        //$lt小于
+   查询数学成绩不等于88的同学
+        db.users.find(&#123;score:&#123;$ne:88&#125;&#125;);
+   查询总分大于200分的所有同学
+        db.users.find(&#123;score:&#123;$gt:200&#125;&#125;);
+</code></pre>
+<h4 id="分页"><a href="#分页" class="headerlink" title="分页"></a>分页</h4><ul>
+<li><code>db.users.find().skip(3).limit(3);</code></li>
+<li>db.集合名称.find().跳到3.显示3条<br>  ​    ​    ​    ​    + limit 0,3</li>
+</ul>
+<h4 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h4><ul>
+<li><code>db.users.find().sort(&#123;key:排序方式&#125;);</code></li>
+<li><code>db.users.find().sort(&#123;&#39;score&#39;:1&#125;);</code> &#x2F;&#x2F;正数代表升序，负数代表降序</li>
+</ul>
+<h4 id="模糊匹配"><a href="#模糊匹配" class="headerlink" title="模糊匹配"></a>模糊匹配</h4><ul>
+<li><code>db.users.find(&#123;name:&#123;$regex:&#39;小&#39;&#125;&#125;);</code></li>
+<li><code>db.users.find(&#123;name:&#123;$regex:&#39;明&#39;&#125;&#125;);</code></li>
+</ul>
+<h4 id="聚合函数-1"><a href="#聚合函数-1" class="headerlink" title="聚合函数"></a>聚合函数</h4><ul>
+<li><p>需要求当前集合的记录数：</p>
+</li>
+<li><p><code>db.users.find().count();</code></p>
+</li>
+<li><p>求最大值<br>  -求整个集合的总成绩<br>  ​    + db.集合名.聚合({ 组的划分规则{_id:’1’,显示内容:{$sum:’$score’}} })</p>
+<ul>
+<li>求所有人的平均分<ul>
+<li><code>db.users.aggregate(&#123;$group:&#123;_id:&#39;1&#39;,sumscore:&#123;$avg:&#39;$score&#39; &#125; &#125;&#125;);</code></li>
+</ul>
+</li>
+<li>求按国家分组，求所有国家的总分<ul>
+<li><code>db.users.aggregate(&#123;$group:&#123;_id:&#39;$contry&#39;,sumScore:&#123;$sum:&#39;$score&#39;&#125;&#125;&#125;);</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>添加基础数据:<br>  db.users.save({contry:’中国’,name:’小明’,score:77});<br>  db.users.save({contry:’中国’,name:’小红’,score:88});<br>  db.users.save({contry:’中国’,name:’小张’,score:99});<br>  db.users.save({contry:’美国’,name:’jack’,score:45});<br>  db.users.save({contry:’美国’,name:’rose’,score:67});<br>  db.users.save({contry:’美国’,name:’mick’,score:89});</p>
+</li>
+</ul>
+<p>解决32位异常<br>mongod –dbpath&#x3D;”路径” –journal –storageEngine&#x3D;mmapv1</p>
+<h3 id="mongoose"><a href="#mongoose" class="headerlink" title="mongoose"></a>mongoose</h3><h3 id="mySQL与-mongoDB-区别"><a href="#mySQL与-mongoDB-区别" class="headerlink" title="mySQL与 mongoDB 区别"></a>mySQL与 mongoDB 区别</h3><p>1：mysql 是关系型数据库  mongoDB 是非关系型</p>
+<p>2: mysql 需要自己创建连接池 操作数据库 ，mongoDB 内部自带连接池</p>
+<p>3: 概念区分：</p>
+<p>​    myql 数据库&#x2F;表&#x2F;字段  </p>
+<p>​    mongoDB  数据库&#x2F;集合&#x2F;文档最对象</p>
+<p>4：操作数据：</p>
+<ul>
+<li>mysql  必须先创建数据库—&gt;创建表—&gt; 字段——&gt;字段值的数据类型    这些必须在操作数据之前准备好 中间 字段有改变时候，必须要通过表来改变。不能通过操作数据的sql语句来修改</li>
+<li>mongoDB 创建数据库 ,集合以及文档对象，都可以通过操作数据的命令来创建或者修改。使用’命令行‘时，如果没有集合则会自动创建，有 则对集合中文档对象操作</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://xiaohuooo.github.io">Xiaohu</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://xiaohuooo.github.io/2022/10/06/%E6%95%B0%E6%8D%AE%E5%BA%93(mysql_mongo)/">https://xiaohuooo.github.io/2022/10/06/%E6%95%B0%E6%8D%AE%E5%BA%93(mysql_mongo)/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://xiaohuooo.github.io" target="_blank">小虎のBlog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/mysql/">mysql</a></div><div class="post_share"><div class="social-share" data-image="https://pic4.zhimg.com/v2-1aa6388e4d4a03f71758144836ee0111_b.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2022/10/08/async%20await%20%E5%8F%8C%E5%88%83%E5%89%91/"><img class="prev-cover" src="https://th.bing.com/th/id/OIP.0PP979cRedaM7oLdZ_Qh9gHaDH?w=297&amp;h=146&amp;c=7&amp;r=0&amp;o=5&amp;dpr=1.1&amp;pid=1.7" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">async await 是把双刃剑</div></div></a></div><div class="next-post pull-right"><a href="/2022/09/07/Git/"><img class="next-cover" src="https://umaar.github.io/experiments/github-3d-logo/render-2.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">常用 Git 命令总结</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://img-blog.csdnimg.cn/20200718094906390.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Xiaohu</div><div class="author-info__description">好好学习，天天向上</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">5</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">5</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#mysql%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-number">1.</span> <span class="toc-text">mysql数据库</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E8%A1%A8"><span class="toc-number">1.1.</span> <span class="toc-text">创建表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%A0%E9%99%A4%E8%A1%A8"><span class="toc-number">1.2.</span> <span class="toc-text">删除表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8F%92%E5%85%A5%E6%95%B0%E6%8D%AE"><span class="toc-number">1.3.</span> <span class="toc-text">插入数据</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">2.</span> <span class="toc-text">总结</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E8%AF%A2%E8%AF%AD%E5%8F%A5"><span class="toc-number">3.</span> <span class="toc-text">查询语句</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9D%A1%E4%BB%B6%E6%9F%A5%E8%AF%A2"><span class="toc-number">3.1.</span> <span class="toc-text">条件查询</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A8%A1%E7%B3%8A%E6%9F%A5%E8%AF%A2"><span class="toc-number">3.2.</span> <span class="toc-text">模糊查询</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%81%9A%E5%90%88%E5%87%BD%E6%95%B0"><span class="toc-number">3.3.</span> <span class="toc-text">聚合函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8E%92%E5%BA%8F-order-by"><span class="toc-number">3.4.</span> <span class="toc-text">排序(order by)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%86%E7%BB%84-group-by"><span class="toc-number">3.5.</span> <span class="toc-text">分组(group by)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%86%E9%A1%B5-limit"><span class="toc-number">3.6.</span> <span class="toc-text">分页(limit)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%BB%98%E8%AE%A4%E7%AB%AF%E5%8F%A3%EF%BC%88%E6%95%B0%E6%8D%AE%E5%BA%93%E6%B1%87%E6%80%BB%EF%BC%89"><span class="toc-number">3.7.</span> <span class="toc-text">默认端口（数据库汇总）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#mysql%E4%B8%AD%E9%97%B4%E4%BD%BF%E7%94%A8"><span class="toc-number">4.</span> <span class="toc-text">mysql中间使用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%AD%A5%E9%AA%A4"><span class="toc-number">4.1.</span> <span class="toc-text">使用步骤</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#getConnection"><span class="toc-number">4.1.1.</span> <span class="toc-text">getConnection()</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#query"><span class="toc-number">4.1.2.</span> <span class="toc-text">query()</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#mongoDB"><span class="toc-number">5.</span> <span class="toc-text">mongoDB</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9D%A1%E4%BB%B6%E6%9F%A5%E8%AF%A2-1"><span class="toc-number">5.1.</span> <span class="toc-text">条件查询</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%86%E9%A1%B5"><span class="toc-number">5.2.</span> <span class="toc-text">分页</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8E%92%E5%BA%8F"><span class="toc-number">5.3.</span> <span class="toc-text">排序</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A8%A1%E7%B3%8A%E5%8C%B9%E9%85%8D"><span class="toc-number">5.4.</span> <span class="toc-text">模糊匹配</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%81%9A%E5%90%88%E5%87%BD%E6%95%B0-1"><span class="toc-number">5.5.</span> <span class="toc-text">聚合函数</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#mongoose"><span class="toc-number">6.</span> <span class="toc-text">mongoose</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#mySQL%E4%B8%8E-mongoDB-%E5%8C%BA%E5%88%AB"><span class="toc-number">7.</span> <span class="toc-text">mySQL与 mongoDB 区别</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/10/08/async%20await%20%E5%8F%8C%E5%88%83%E5%89%91/" title="async await 是把双刃剑"><img src="https://th.bing.com/th/id/OIP.0PP979cRedaM7oLdZ_Qh9gHaDH?w=297&amp;h=146&amp;c=7&amp;r=0&amp;o=5&amp;dpr=1.1&amp;pid=1.7" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="async await 是把双刃剑"/></a><div class="content"><a class="title" href="/2022/10/08/async%20await%20%E5%8F%8C%E5%88%83%E5%89%91/" title="async await 是把双刃剑">async await 是把双刃剑</a><time datetime="2022-10-08T12:08:58.000Z" title="发表于 2022-10-08 20:08:58">2022-10-08</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/10/06/%E6%95%B0%E6%8D%AE%E5%BA%93(mysql_mongo)/" title="mysql知识点"><img src="https://pic4.zhimg.com/v2-1aa6388e4d4a03f71758144836ee0111_b.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="mysql知识点"/></a><div class="content"><a class="title" href="/2022/10/06/%E6%95%B0%E6%8D%AE%E5%BA%93(mysql_mongo)/" title="mysql知识点">mysql知识点</a><time datetime="2022-10-06T04:52:18.000Z" title="发表于 2022-10-06 12:52:18">2022-10-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/09/07/Git/" title="常用 Git 命令总结"><img src="https://umaar.github.io/experiments/github-3d-logo/render-2.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="常用 Git 命令总结"/></a><div class="content"><a class="title" href="/2022/09/07/Git/" title="常用 Git 命令总结">常用 Git 命令总结</a><time datetime="2022-09-07T09:03:49.000Z" title="发表于 2022-09-07 17:03:49">2022-09-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/08/19/blog/" title="blog"><img src="http://up.36992.com/pic/e6/c5/51/e6c551e768092c8655292d89a4034a74.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="blog"/></a><div class="content"><a class="title" href="/2022/08/19/blog/" title="blog">blog</a><time datetime="2022-08-19T13:35:34.000Z" title="发表于 2022-08-19 21:35:34">2022-08-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/08/18/hello-world/" title="Hello World"><img src="https://img-blog.csdnimg.cn/20200718094916304.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hello World"/></a><div class="content"><a class="title" href="/2022/08/18/hello-world/" title="Hello World">Hello World</a><time datetime="2022-08-18T05:30:40.912Z" title="发表于 2022-08-18 13:30:40">2022-08-18</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By Xiaohu</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>function addGitalkSource () {
+  const ele = document.createElement('link')
+  ele.rel = 'stylesheet'
+  ele.href= 'https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css'
+  document.getElementsByTagName('head')[0].appendChild(ele)
+}
+
+function loadGitalk () {
+  function initGitalk () {
+    var gitalk = new Gitalk(Object.assign({
+      clientID: 'baab48a983ec14e4cdde',
+      clientSecret: 'c836d8a676b177f265ee694beb1b70f311588090',
+      repo: 'blogcomments',
+      owner: 'Mis-xiaohu',
+      admin: ['Mis-xiaohu'],
+      id: '5fb2a26060df520085175179bcedcc91',
+      updateCountCallback: commentCount
+    },null))
+
+    gitalk.render('gitalk-container')
+  }
+
+  if (typeof Gitalk === 'function') initGitalk()
+  else {
+    addGitalkSource()
+    getScript('https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js').then(initGitalk)
+  }
+}
+
+function commentCount(n){
+  let isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+  if (isCommentCount) {
+    isCommentCount.innerHTML= n
+  }
+}
+
+if ('Gitalk' === 'Gitalk' || !true) {
+  if (true) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+  else loadGitalk()
+} else {
+  function loadOtherComment () {
+    loadGitalk()
+  }
+}</script></div><script src="https://widget.qweather.net/simple/static/js/he-simple-common.js?v=2.0"></script><script async src="/js/weather.js"></script><script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="150" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-nest.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/activate-power-mode.min.js"></script><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="true"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
